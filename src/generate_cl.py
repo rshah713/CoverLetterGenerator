@@ -5,7 +5,13 @@ from datetime import datetime
 
 
 def replace_doc_text(doc, old_text, new_text):
-
+    """
+    Use the template to generate tailored cover letter.
+    
+    :param doc: The `docx.Document` object whose text will be replaced.
+    :param old_text: The text to search for and replace.
+    :param new_text: The text to replace old_text with.
+    """
     for paragraph in doc.paragraphs:
         if old_text in paragraph.text:
             for run in paragraph.runs:
