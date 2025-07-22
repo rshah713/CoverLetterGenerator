@@ -1,2 +1,74 @@
 # CoverLetterGenerator
-im tired of writing cover letters :(
+Built for myself because I'm tired of writing custom cover letters and LLM generated ones are trash.
+
+Base template (not GPT'd!) is provided. Tool is used to customize company name, team, and date and output pdf. 
+
+Tested only on my system (macOS), no guarantees this will work for you!
+
+-------
+## Installation
+
+```bash
+pip install -r requirements.txt # for customizing docx template
+brew install libreoffice # for pdf export
+```
+
+-------
+## Usage
+```bash
+usage: main.py [-h] -c COMPANY [-t TEAM] [-p TEMPLATE]
+
+Cover Letter Generator
+
+options:
+  -h, --help            show this help message and exit
+  -c, --company COMPANY
+                        Company name
+  -t, --team TEAM       Team name (optional)
+  -p, --template TEMPLATE
+                        .docx template path (optional)
+```
+
+Simple Example:
+```bash
+$ python3 ~/Documents/CoverLetterGenerator/src/main.py -c Google
+
+convert /Users/RohanShah/Downloads/temp_filled.docx as a Writer document -> /Users/RohanShah/Downloads/temp_filled.pdf using filter : writer_pdf_Export
+==> PDF created at: ~/Downloads/Rohan Shah - Google Cover Letter.pdf
+```
+-------
+## Alias
+For easier usage, you can `alias` the absolute path of the tool to a friendly command.
+
+```bash
+$ alias covergen='python3 ~/Documents/CoverLetterGenerator/src/main.py'
+
+$ covergen -c Apple
+usage: main.py [-h] -c COMPANY [-t TEAM] [-p TEMPLATE]
+
+Cover Letter Generator
+
+options:
+  -h, --help            show this help message and exit
+  -c, --company COMPANY
+                        Company name
+  -t, --team TEAM       Team name (optional)
+  -p, --template TEMPLATE
+                        .docx template path (optional)
+```
+
+Recall this is only session dependent, add to `.bashrc or .zprofile` to save the alias.
+
+-------
+## Possible Issues
+
+None of the following solutions are tested as this program was built for personal use. 
+
+> `libreoffice` PATH is incorrect.
+
+Use `which libreoffice` to locate the download path and replace it in `convert_docx_to_pdf`
+
+
+> `template.docx` is not found
+
+Utilize `main.py -p` to pass the absolute path of the template OR to add your own template. 
