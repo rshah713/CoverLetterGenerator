@@ -1,30 +1,34 @@
-from docx import Document
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import LETTER
+import subprocess
+import os
 
-# Step 1: Extract text from DOCX
-def extract_text(docx_path):
-    doc = Document(docx_path)
-    lines = []
-    for para in doc.paragraphs:
-        lines.append(para.text)
-    return lines
+def convert_docx_to_pdf(docx_path, out_filename):
+    if not os.path.isfile(docx_path):
+        raise FileNotFoundError(f"File not found: {docx_path}")
+    
+    libreoffice_path = "/Applications/LibreOffice.app/Contents/MacOS/soffice"
+    
+    cmd = [
+        libreoffice_path,
+        "--headless",
+        "--convert-to", "pdf",
+        "--outdir", ".",
+        docx_path
+    ]
+    
+    try:
+        subprocess.run(cmd, check=True)
+        pdf_name = os.path.splitext(os.path.basename(docx_path))[0] + ".pdf"
+        
+        # Rename the output file to the specified filename
+        if pdf_name != out_filename:
+            os.rename(pdf_name, out_filename)
+        
+        print(f"==> PDF created at: {out_filename}")
+        return out_filename
+    except subprocess.CalledProcessError as e:
+        print("==> ERROR: Conversion failed.")
+        print(e)
+        return None
 
-# Step 2: Write to PDF using ReportLab
-def write_pdf(text_lines, pdf_path):
-    c = canvas.Canvas(pdf_path, pagesize=LETTER)
-    width, height = LETTER
-    y = height - 50  # start from top
-
-    for line in text_lines:
-        if y < 50:
-            c.showPage()
-            y = height - 50
-        c.drawString(50, y, line)
-        y -= 14  # line spacing
-
-    c.save()
-
-# Run the conversion
-lines = extract_text("template.docx")
-write_pdf(lines, "output.pdf")
+if __name__ == "__main__":
+    convert_docx_to_pdf("template.docx", "output.pdf")

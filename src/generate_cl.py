@@ -1,6 +1,8 @@
 from docx import Document
 from docx.shared import Inches
 
+from datetime import datetime
+
 
 def replace_doc_text(doc, old_text, new_text):
 
@@ -20,9 +22,17 @@ def replace_doc_text(doc, old_text, new_text):
     return doc
 
 
+def handler(company_name, team_name):
+    today_str = datetime.now().strftime("%d %B %Y").upper()
+
+    doc = Document("template.docx")
+    doc = replace_doc_text(doc, "CompanyName", company_name)
+    doc = replace_doc_text(doc, "_date", today_str)
+    doc = replace_doc_text(doc, "TeamName", team_name)
+    doc.save(f"temp_filled.docx")
+
 
 if __name__ == "__main__":
-    from datetime import datetime
     today_str = datetime.now().strftime("%d %B %Y").upper()
 
     doc = Document("template.docx")
