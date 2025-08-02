@@ -60,6 +60,12 @@ options:
 Recall this is only session dependent, add to `.bashrc or .zprofile` to save the alias.
 
 -------
+## Customization
+You'll likely need to customize the email, github link, university, etc. 
+
+It's best if you download the `template.docx` provided, edit the values and save it to the same directory. I didn't feel like providing a programmatic way to update this b/c it should stay static for all the cover letters you generate. 
+
+-------
 ## Possible Issues
 
 None of the following solutions are tested as this program was built for personal use. 
