@@ -16,7 +16,7 @@ brew install libreoffice # for pdf export
 -------
 ## Usage
 ```bash
-usage: main.py [-h] -c COMPANY [-t TEAM] [-p TEMPLATE]
+usage: main.py [-h] -c COMPANY [-t TEAM] [-p TEMPLATE] [-n NAME]
 
 Cover Letter Generator
 
@@ -27,14 +27,16 @@ options:
   -t, --team TEAM       Team name (optional)
   -p, --template TEMPLATE
                         .docx template path (optional)
+  -n, --name NAME       Full name (optional)
 ```
 
 Simple Example:
 ```bash
 $ python3 ~/Documents/CoverLetterGenerator/src/main.py -c Google
-
-convert /Users/RohanShah/Downloads/temp_filled.docx as a Writer document -> /Users/RohanShah/Downloads/temp_filled.pdf using filter : writer_pdf_Export
 ==> PDF created at: ~/Downloads/Rohan Shah - Google Cover Letter.pdf
+
+$ python3 ~/Documents/CoverLetterGenerator/src/main.py -c "Capital One" -t "Enterprise Services"
+==> PDF created at: ~/Downloads/Rohan Shah - Capital One Cover Letter.pdf
 ```
 -------
 ## Alias
